@@ -1,15 +1,18 @@
-import { shortenUrl } from "./api/url";
+import "./App.css";
+
+import { useState } from "react";
+import ShortenForm from "./components/ShortenForm";
+import ShortUrlResult from "./components/ShortUrlResult";
 
 function App() {
-  const testApi = async () => {
-    const data = await shortenUrl("https://www.google.com");
-    console.log(data);
-  };
+  const [result, setResult] = useState(null);
 
   return (
     <div>
       <h1>URL Shortener</h1>
-      <button onClick={testApi}>Test Backend</button>
+
+      <ShortenForm onResult={setResult} />
+      <ShortUrlResult result={result} />
     </div>
   );
 }
