@@ -1,13 +1,45 @@
 const Url = require("../models/url.model");
 const generateCode = require("../utils/generateCode");
 
+const isValidUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+
 exports.shortenUrl = async (req, res) => {
  try {
         const { originalUrl } = req.body;
+
         if (!originalUrl) {
             return res.status(400).json({ message: "Original URL required" });
         }
-        const shortCode = generateCode();
+
+        if (!isValidUrl(originalUrl)) {
+            return res.status(400).json({ message: "Invalid URL" });
+        }
+
+        //check that url exist already
+        const existingUrl = await Url.findOne({ originalUrl });
+        if(existingUrl) {
+            return res.json({
+                shortUrl: `${req.protocol}://${req.get("host")}/${existingUrl.shortCode}`,
+                message: "URL already shortened",
+            });
+        }
+
+        //handelling the collision
+        let shortCode;
+        let exists = true;
+        while(exists) {
+            shortCode = generateCode();
+            exists = await Url.findOne({ shortCode });
+        }
+
         const newUrl = new Url({
             originalUrl,
             shortCode,
@@ -30,6 +62,10 @@ exports.redirectUrl = async (req, res) => {
   if (!url) {
     return res.status(404).json({ message: "URL not found" });
   }
+
+  if (url.expiresAt && url.expiresAt < new Date()) {
+      return res.status(410).json({ message: "URL expired" });
+    }
 
   url.clickCount += 1;
   await url.save();
