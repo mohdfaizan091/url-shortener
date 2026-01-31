@@ -36,3 +36,23 @@ exports.redirectUrl = async (req, res) => {
 
   res.redirect(url.originalUrl);
 };
+
+
+exports.getAnalytics = async (req, res) => {
+    const { shortCode } = req.params;
+
+    const url = await Url.findOne({ shortCode });
+    if(!url){
+        return res.status(404).json({
+            status: false,
+            message: "URL Not Found"
+        });
+    }
+
+    res.json({
+        originalUrl: url.originalUrl,
+        shortCode: url.shortCode,
+        clickCount: url.clickCount,
+        createdAt: url.createdAt,
+    });
+};
