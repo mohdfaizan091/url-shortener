@@ -11,6 +11,7 @@ const isValidUrl = (url) => {
   }
 };
 
+//-------------
 // genearate a short code for the URL
 exports.shortenUrl = async (req, res) => {
  try {
@@ -33,19 +34,15 @@ exports.shortenUrl = async (req, res) => {
             });
         }
 
-        //handelling the collision
-        let shortCode;
-        let exists = true;
-        while(exists) {
-            shortCode = generateCode();
-            exists = await Url.findOne({ shortCode });
-        }
-
+        // No collision check needed — generateCode() pulls from an atomic
+        // counter, so every value is guaranteed unique by construction.
+        const shortCode = await generateCode();
         const newUrl = new Url({
             originalUrl,
             shortCode,
         });
         await newUrl.save();
+
         res.status(201).json({
             shortUrl: `${req.protocol}://${req.get("host")}/${shortCode}`,
         });
@@ -54,6 +51,8 @@ exports.shortenUrl = async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
+
+//----------
 
 // redirect to the original URL
 exports.redirectUrl = async (req, res) => {
