@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
 const urlSchema = new mongoose.Schema({
-  originalUrl: {
-    type: String,
-    required: true,
+   originalUrl: {
+   type: String,
+   required: true,
+   index: true, // speeds up the dedup lookup in shortenUrl (findOne({ originalUrl }))
   },
   shortCode: {
     type: String,
