@@ -34,7 +34,7 @@ exports.shortenUrl = async (req, res) => {
             });
         }
 
-        // No collision check needed — generateCode() pulls from an atomic
+        // No collision check needed — generateCode() pulls from an atomic.
         // counter, so every value is guaranteed unique by construction.
         const shortCode = await generateCode();
         const newUrl = new Url({
