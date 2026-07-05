@@ -56,21 +56,20 @@ exports.shortenUrl = async (req, res) => {
 
 exports.redirectUrl = async (req, res) => {
   const { shortCode } = req.params;
-
   const url = await Url.findOne({ shortCode });
 
-  if (!url) {
-    return res.status(404).json({ message: "URL not found" });
+  if (!url) return res.status(404).json({ message: "URL not found" });
+  if (url.expiresAt && url.expiresAt < new Date()) {
+    return res.status(410).json({ message: "URL expired" });
   }
 
-  if (url.expiresAt && url.expiresAt < new Date()) {
-      return res.status(410).json({ message: "URL expired" });
-    }
-
-  url.clickCount += 1;
-  await url.save();
-
+  // Redirect immediately — the user should not wait on an analytics write.
   res.redirect(url.originalUrl);
+
+  // Atomic, fire-and-forget click tracking, decoupled from the response.
+  Url.findOneAndUpdate({ shortCode }, { $inc: { clickCount: 1 } }).catch((err) => {
+    console.error(`Click count update failed for ${shortCode}:`, err);
+  });
 };
 
 
