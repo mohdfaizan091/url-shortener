@@ -1,5 +1,6 @@
 const Url = require("../models/url.model");
 const generateCode = require("../utils/generateCode");
+// url validation function
 
 const isValidUrl = (url) => {
   try {
@@ -10,7 +11,7 @@ const isValidUrl = (url) => {
   }
 };
 
-
+// genearate a short code for the URL
 exports.shortenUrl = async (req, res) => {
  try {
         const { originalUrl } = req.body;
@@ -48,12 +49,13 @@ exports.shortenUrl = async (req, res) => {
         res.status(201).json({
             shortUrl: `${req.protocol}://${req.get("host")}/${shortCode}`,
         });
-    } catch (error) {
+    }   catch (error) {
         console.error("Error shortening URL:", error);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
 
+// redirect to the original URL
 exports.redirectUrl = async (req, res) => {
   const { shortCode } = req.params;
   const url = await Url.findOne({ shortCode });
@@ -72,7 +74,7 @@ exports.redirectUrl = async (req, res) => {
   });
 };
 
-
+// get analytics for a short URL
 exports.getAnalytics = async (req, res) => {
     const { shortCode } = req.params;
 
