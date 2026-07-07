@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
+app.set("trust proxy", true);
+const os = require("os");
 const cors = require("cors");
+
+//os
+app.use((req, res, next) => {
+  res.set("X-Served-By", os.hostname());
+  next();
+});
 
 // Middleware
 app.use(express.json());
