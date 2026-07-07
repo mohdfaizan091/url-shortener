@@ -4,7 +4,7 @@ app.set("trust proxy", true);
 const os = require("os");
 const cors = require("cors");
 
-//os
+//os--To check round robin algorith to assign the request to different containers in the cluster
 app.use((req, res, next) => {
   res.set("X-Served-By", os.hostname());
   next();
