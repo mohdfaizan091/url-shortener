@@ -30,6 +30,32 @@ This project prioritizes **system design thinking** over feature count. It's bui
 - **Expiration Support**: Optional TTL for short links
 - **Graceful Error Handling**: Proper HTTP status codes for all scenarios
 
+## Load Testing
+
+Tested locally using k6, with the full stack running via Docker Compose
+(3 backend instances behind Nginx, Redis cache/rate-limiter, MongoDB Atlas).
+
+**Caveat:** load generator and target ran on the same laptop, sharing
+CPU/network with the servers under test. A cleaner test would run k6
+from a separate machine against a deployed instance — the numbers below
+reflect that shared-hardware constraint.
+
+### Redirect endpoint (GET /:shortCode) — the primary hot path
+- 200 concurrent virtual users, sustained 30s
+- **935 req/s** throughput, **40,845** total requests
+- p95 latency: **126.74ms** (threshold: <500ms) ✅
+- Success rate: **99.98%** (10 outlier requests, max 15.2s — attributed
+  to a cold-cache burst against MongoDB Atlas's free-tier shared cluster;
+  not reproducible on repeat runs at steady state)
+
+### Shorten endpoint (POST /shorten) — rate-limit correctness under sustained load
+- 2 requests/sec sustained, 20s (realistic creation-traffic rate, not a
+  throughput test — this endpoint is intentionally rate-limited)
+- 100% of requests correctly returned either 201 (allowed) or 429
+  (rate-limited), confirming the Redis-backed token bucket holds up
+  correctly under sustained real-world traffic patterns, not just a
+  single manual burst
+
 ### 📱 Minimal Frontend
 - Plain css used for frontend (intentionally)
 - Real-time feedback for user actions
