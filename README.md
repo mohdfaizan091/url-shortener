@@ -1,3 +1,5 @@
+[![Backend CI](https://github.com/mohdfaizan091/url-shortener/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/mohdfaizan091/url-shortener/actions/workflows/backend-ci.yml)
+
 #  URL Shortener + Analytics - Backend-First System
 
 A production-ready URL shortening service built with a backend-first approach, focusing on system design fundamentals, clean API architecture, and scalability considerations.
