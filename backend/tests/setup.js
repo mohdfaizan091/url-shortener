@@ -23,6 +23,9 @@ const clearDatabase = async () => {
   for (const key in collections) {
     await collections[key].deleteMany();
   }
+
+  await redisClient.del("ratelimit:::1", "ratelimit:::ffff:127.0.0.1");
 };
+
 
 module.exports = { connect, closeDatabase, clearDatabase };
