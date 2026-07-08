@@ -1,6 +1,23 @@
 import { useState } from "react";
 import { shortenUrl } from "../api/url";
 
+const normalizeUrl = (input) => {
+  const trimmed = input.trim();
+  if (!/^https?:\/\//i.test(trimmed)) {
+    return `https://${trimmed}`;
+  }
+  return trimmed;
+};
+
+const isValidUrl = (value) => {
+  try {
+    new URL(value);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const ShortenForm = ({ onResult }) => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -10,15 +27,22 @@ const ShortenForm = ({ onResult }) => {
     e.preventDefault();
     setError("");
 
-    if (!url) {
+    if (!url.trim()) {
       setError("Please enter a URL");
+      return;
+    }
+
+    const normalized = normalizeUrl(url);
+
+    if (!isValidUrl(normalized)) {
+      setError("Enter a valid URL, e.g. example.com");
       return;
     }
 
     try {
       setLoading(true);
-      const data = await shortenUrl(url);
-      onResult(data);
+      const data = await shortenUrl(normalized);
+      onResult({ ...data, originalUrl: normalized });
       setUrl("");
     } catch {
       setError("Invalid or unreachable URL");
