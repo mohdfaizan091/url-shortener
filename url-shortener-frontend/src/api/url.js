@@ -9,3 +9,8 @@ export const fetchAnalytics = async (shortenCode) => {
     const res = await api.get(`/analytics/${shortenCode}`);
     return res.data;
 };
+
+export const checkHealth = async () => {
+  const res = await api.get("/health");
+  return res.data;
+};
