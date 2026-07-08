@@ -4,9 +4,11 @@ import Analytics from "./Analytics";
 
 const ShortUrlResult = ({ result }) => {
   const [analytics, setAnalytics] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!result) return;
+    setCopied(false);
 
     const code = result.shortUrl.split("/").pop();
 
@@ -18,18 +20,41 @@ const ShortUrlResult = ({ result }) => {
     loadAnalytics();
   }, [result]);
 
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(result.shortUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
   if (!result) return null;
 
-  return (
-    <div>
-      <p>Short URL:</p>
-      <a href={result.shortUrl} target="_blank">
+return (
+  <div className="mt-6">
+    <div
+      className="flex items-center justify-between gap-3 bg-deep text-white
+                 rounded-[10px] px-4 py-3"
+    >
+      <a
+        href={result.shortUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="font-display text-sm md:text-base truncate hover:underline"
+      >
         {result.shortUrl}
       </a>
 
-      <Analytics data={analytics} />
+      <button
+        onClick={handleCopy}
+        className="shrink-0 font-body text-xs font-medium bg-white/10
+                   hover:bg-white/20 px-3 py-1.5 rounded-[6px] transition-colors"
+      >
+        {copied ? "Copied" : "Copy"}
+      </button>
     </div>
-  );
+
+    <Analytics data={analytics} />
+  </div>
+);
 };
 
 export default ShortUrlResult;

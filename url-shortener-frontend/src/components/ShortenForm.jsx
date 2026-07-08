@@ -29,18 +29,35 @@ const ShortenForm = ({ onResult }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Enter long URL"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      />
+      <div
+        className="flex items-center gap-3 bg-surface border border-border
+                   rounded-[10px] px-4 py-3 shadow-sm
+                   focus-within:outline focus-within:outline-2
+                   focus-within:outline-accent"
+      >
+        <span className="font-display text-accent select-none">&gt;</span>
+        <input
+          type="text"
+          placeholder="paste-a-long-url-here.com/..."
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          className="flex-1 min-w-0 bg-transparent outline-none placeholder:text-ink-muted"
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="shrink-0 bg-accent text-white font-body font-medium text-sm
+                     px-4 py-2 rounded-[8px] hover:bg-accent/90
+                     disabled:opacity-50 disabled:cursor-not-allowed
+                     transition-colors"
+        >
+          {loading ? "Shortening…" : "Shorten"}
+        </button>
+      </div>
 
-      <button type="submit" disabled={loading}>
-        {loading ? "Shortening..." : "Shorten"}
-      </button>
-
-      {error && <p>{error}</p>}
+      {error && (
+        <p className="mt-2 text-sm text-error font-body">{error}</p>
+      )}
     </form>
   );
 };
