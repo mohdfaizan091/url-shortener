@@ -54,6 +54,19 @@ Tested locally with k6, full stack running via Docker Compose (3 backend instanc
 
 **Frontend:** React, Vite, Tailwind CSS, Axios
 
+---
+
+## Screenshots
+
+### Landing Page
+![Landing Page](./screenshots/landingPage.png)
+
+### Analytics
+![Analytics](./screenshots/analytics.png)
+
+---
+
+
 ## Running locally
 
 **Backend:**
