@@ -72,6 +72,9 @@ Tested locally with k6, full stack running via Docker Compose (3 backend instanc
 ### Analytics
 ![Analytics](./screenshots/analytics.png)
 
+### History
+![History](./screenshots/history.png)
+
 ---
 
 
