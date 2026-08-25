@@ -21,7 +21,7 @@ const HistoryPage = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
+    <div className="max-w-4xl mx-auto px-6 py-16">
       <Link
         to="/"
         className="font-body text-xs text-ink-muted hover:text-ink transition-colors"

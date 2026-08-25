@@ -15,7 +15,7 @@ function App() {
           </Routes>
         </main>
         <footer className="border-t border-border">
-          <div className="max-w-3xl mx-auto px-6 pt-10 pb-6">
+          <div className="max-w-4xl mx-auto px-6 pt-10 pb-6">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
               <div>
                 <span className="font-display font-bold text-lg tracking-tight">
@@ -68,7 +68,7 @@ function App() {
                       </a>
                     </li>
                     <li>
-                      {/* ✅ Fixed: added missing <a tag */}
+                      
                       <a
                         href="https://github.com/mohdfaizan091"
                         target="_blank"

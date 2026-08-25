@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-bg border-b border-border">
-      <div className="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
         <span
           onClick={handleLogoClick}
           className="font-display font-bold text-lg tracking-tight cursor-pointer select-none
@@ -62,7 +62,7 @@ const Navbar = () => {
             disabled
             title="Coming soon"
             className="font-body text-sm font-medium bg-ink-muted/20 text-ink-muted
-                       px-4 py-2 rounded-[8px] cursor-not-allowed"
+                      px-4 py-2 rounded-[8px] cursor-not-allowed opacity-60"
           >
             Sign up
           </button>
