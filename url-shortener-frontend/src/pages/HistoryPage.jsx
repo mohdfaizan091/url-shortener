@@ -29,7 +29,7 @@ const HistoryPage = () => {
         ← Back
       </Link>
 
-      <div className="mt-4 flex items-center justify-between">
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="font-display font-bold text-2xl md:text-3xl">
             All links
@@ -66,7 +66,6 @@ const HistoryPage = () => {
                            hover:border-ink-muted transition-colors"
               >
                 <div className="min-w-0">
-                  {/* ✅ Fixed: added the missing <a tag */}
                   <a
                     href={item.shortUrl}
                     target="_blank"

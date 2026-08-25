@@ -43,7 +43,7 @@ const HomePage = () => {
           </div>
           <div className="flex items-center justify-between gap-3 bg-surface border border-border rounded-[10px] px-4 py-2.5">
             <div className="min-w-0">
-              {/* ✅ Fixed: added the missing <a tag */}
+              
               <a
                 href={latest.shortUrl}
                 target="_blank"

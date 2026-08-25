@@ -47,7 +47,7 @@ const Navbar = () => {
 
         <div className="flex items-center gap-2">
           <span className={`w-2 h-2 rounded-full ${statusColor}`} />
-          <span className="font-display text-xs text-ink-muted">{statusLabel}</span>
+          <span className="font-display text-xs text-ink-muted hidden sm:inline">{statusLabel}</span>
         </div>
 
         <nav className="flex items-center gap-3">
