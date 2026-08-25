@@ -24,9 +24,13 @@ const Navbar = () => {
     status === "up" ? "operational" : status === "down" ? "down" : "checking…";
 
   return (
-    <header className="border-b border-border">
+    <header className="sticky top-0 z-50 bg-bg border-b border-border">
       <div className="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
-        <span className="font-display font-bold text-lg tracking-tight">
+         <span
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="font-display font-bold text-lg tracking-tight cursor-pointer select-none
+                     hover:opacity-70 transition-opacity"
+        >
           lnk<span className="text-accent">/</span>
         </span>
 
