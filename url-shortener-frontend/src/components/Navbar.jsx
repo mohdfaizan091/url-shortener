@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { checkHealth } from "../api/url";
 
 const Navbar = () => {
   const [status, setStatus] = useState("checking"); // checking | up | down
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const ping = async () => {
@@ -18,6 +21,14 @@ const Navbar = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleLogoClick = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  };
+
   const statusColor =
     status === "up" ? "bg-green-500" : status === "down" ? "bg-error" : "bg-ink-muted";
   const statusLabel =
@@ -26,8 +37,8 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 bg-bg border-b border-border">
       <div className="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
-         <span
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        <span
+          onClick={handleLogoClick}
           className="font-display font-bold text-lg tracking-tight cursor-pointer select-none
                      hover:opacity-70 transition-opacity"
         >
