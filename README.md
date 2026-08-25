@@ -4,6 +4,14 @@ A production-grade URL shortener built as a hands-on system design exercise — 
 
 [![Backend CI](https://github.com/mohdfaizan091/url-shortener/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/mohdfaizan091/url-shortener/actions/workflows/backend-ci.yml)
 
+## Live Demo
+
+- **App:** [url-shortener-roan-delta.vercel.app](https://url-shortener-roan-delta.vercel.app/)
+- **Backend API:** [url-shortener-3zj4.onrender.com](https://url-shortener-3zj4.onrender.com/health)
+
+> Note: the live deployment runs as a single backend instance (Render free tier). The 3-instance Docker + Nginx horizontal-scaling setup described below is fully built and load-tested locally — see [Architecture](#architecture) and [Load testing results](#load-testing-results) for that setup and its proven numbers. Free-tier hosting also means the backend may take 30-60s to respond on its first request after a period of inactivity (cold start).
+
+
 ## What it does
 
 Paste a long URL, get a short one back. Click it, get redirected — fast, cached, and correctly tracked even under heavy concurrent load. Built specifically to explore and prove out real distributed-systems concepts: atomicity, caching, rate limiting, horizontal scaling, and observability — not just "make a shortener," but make one that survives scale.
