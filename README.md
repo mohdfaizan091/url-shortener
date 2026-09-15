@@ -148,6 +148,10 @@ k6 run shorten-test.js
 - Deployment (hosted Redis, backend + frontend live on a real domain)
 - Authentication (per-user links, dashboards) — navbar already has placeholder Log in / Sign up UI, not yet wired to a backend
 
+## PR Practice
+
+This change is made to practice the GitHub Pull Request workflow.
+
 ## Author
 
 Mohd Faizan — [GitHub](https://github.com/mohdfaizan091) · [LinkedIn](https://linkedin.com/in/mohd-faizan)
