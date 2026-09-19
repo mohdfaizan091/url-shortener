@@ -13,3 +13,4 @@ console.log("Total:", total);
 function makeRandomToken(size) {
   return Math.random().toString(36).substring(2, 2 + size);
 }
+// new demo
