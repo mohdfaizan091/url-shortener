@@ -8,3 +8,8 @@ const total = calculateTotal(100, 5);
 // live tests
 
 console.log("Total:", total);
+
+// duplicate-test.js
+function makeRandomToken(size) {
+  return Math.random().toString(36).substring(2, 2 + size);
+}
